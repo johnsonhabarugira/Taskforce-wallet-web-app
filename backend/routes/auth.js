@@ -61,4 +61,20 @@ router.get("/profile", authMiddleware, async (req, res) => {
   }
 });
 
+// // @route   DELETE /api/auth/delete
+// // @desc    Delete user (protected route)
+router.delete('/delete', authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    await User.findByIdAndDelete(req.user.id);
+    res.json({ msg: 'User deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
 module.exports = router;
