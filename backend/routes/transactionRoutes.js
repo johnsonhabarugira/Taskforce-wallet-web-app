@@ -6,7 +6,12 @@ const Account = require('../models/Acount');
 // Create a transaction
 router.post('/add', async (req, res) => {
   try {
-    const { type, amount, account } = req.body;
+    const { type, amount, account, category } = req.body;
+
+    // Validate required fields
+    if (!type || !amount || !account || !category) {
+      return res.status(400).json({ error: 'Type, amount, account, and category are required' });
+    }
 
     // Save the transaction
     const transaction = new Transaction(req.body);
@@ -14,6 +19,10 @@ router.post('/add', async (req, res) => {
 
     // Update the account balance
     const accountToUpdate = await Account.findById(account);
+    if (!accountToUpdate) {
+      return res.status(404).json({ error: 'Account not found' });
+    }
+
     if (type === 'Income') {
       accountToUpdate.balance += amount;
     } else if (type === 'Expense') {
@@ -23,6 +32,7 @@ router.post('/add', async (req, res) => {
 
     res.status(201).json(savedTransaction);
   } catch (error) {
+    console.error('Error creating transaction:', error);
     res.status(500).json({ error: error.message });
   }
 });

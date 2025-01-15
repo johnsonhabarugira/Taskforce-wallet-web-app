@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AccountManagement from './components/AccountManagement';
+import TransactionManagement from './components/TransactionManagement';
 import './App.css';
 
 // ProtectedRoute component
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/accounts" element={<ProtectedRoute><AccountManagement /></ProtectedRoute>} />
+          <Route path="/transactions" element={<ProtectedRoute><TransactionManagement /></ProtectedRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
