@@ -8,18 +8,7 @@ const errorMiddleware = require("./middleware/errorMiddleware");
 // Load environment variables
 dotenv.config();
 
-// MongoDB connection URI
-const mongoURI = process.env.MONGO_URI;
-
-// Connect to MongoDB
-mongoose.connect(mongoURI, {
-  // Remove deprecated options
-}).then(() => {
-  console.log('MongoDB connected...');
-}).catch(err => {
-  console.error('MongoDB connection error:', err);
-});
-
+connectDB();
 const app = express();
 
 // Middleware
@@ -28,6 +17,8 @@ app.use(cors());         // Enable CORS
 
 // Routes
 app.use("/api/auth", require("./routes/auth"));
+app.use("/api/accounts/", require("./routes/accountRoutes"))
+app.use("/api/transactions/", require("./routes/transactionRoutes"))
 
 // Error handling middleware (should be the last middleware)
 app.use(errorMiddleware);
