@@ -1,34 +1,44 @@
-import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 
-const Login = () => {
+const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
     try {
       setLoading(true);
-      const response = await axios.post('/api/auth/login', values); // No need for full URL
-      localStorage.setItem('token', response.data.token); // Store the token in localStorage
-      message.success('Login successful!');
-      navigate('/profile');
+      await axios.post('/api/auth/register', values); 
+      message.success('Registration successful!');
+      navigate('/login');
     } catch (error) {
-      message.error('Login failed!');
+      message.error('Registration failed!');
     } finally {
       setLoading(false);
     }
   };
 
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
   return (
     <div style={{ maxWidth: 400, margin: '0 auto' }}>
-      <h2>Login</h2>
-      <Form name="login" onFinish={onFinish} layout="vertical">
+      <h2>Register</h2>
+      <Form name="register" onFinish={onFinish} onFinishFailed={onFinishFailed} layout="vertical">
+        <Form.Item
+          label="Name"
+          name="name"
+          rules={[{ required: true, message: 'Please input your name!' }]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item
           label="Email"
           name="email"
-          rules={[{ required: true, message: 'Please input your email!' }, { type: 'email' }]}
+          rules={[{ required: true, message: 'Please input your email!' }]}
         >
           <Input />
         </Form.Item>
@@ -41,18 +51,12 @@ const Login = () => {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>
-            Login
+            Register
           </Button>
         </Form.Item>
       </Form>
-      <p>
-        Don't have an account? <Link to="/register">Register</Link>
-      </p>
-      <Button type="link">
-        <Link to="/register">Go to Register</Link>
-      </Button>
     </div>
   );
 };
 
-export default Login;
+export default Register;

@@ -1,12 +1,11 @@
+
 import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-const LoginForm = () => {
+const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
   const onFinish = async (values) => {
     try {
       setLoading(true);
@@ -15,18 +14,16 @@ const LoginForm = () => {
       // Save the token and user data to local storage or context
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
-      navigate('/profile');
+      navigate('/');
     } catch (error) {
       message.error('Login failed!');
     } finally {
       setLoading(false);
     }
   };
-
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
-
   return (
     <Form
       name="login"
@@ -41,7 +38,6 @@ const LoginForm = () => {
       >
         <Input />
       </Form.Item>
-
       <Form.Item
         label="Password"
         name="password"
@@ -49,7 +45,6 @@ const LoginForm = () => {
       >
         <Input.Password />
       </Form.Item>
-
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={loading}>
           Login
@@ -58,5 +53,4 @@ const LoginForm = () => {
     </Form>
   );
 };
-
-export default LoginForm;
+export default Login;

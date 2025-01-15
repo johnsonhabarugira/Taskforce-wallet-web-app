@@ -1,18 +1,32 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import RegistrationPage from './pages/RegistrationPage';
-import UserProfilePage from './pages/UserProfilePage';
-import 'antd/dist/reset.css';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import './App.css';
+
+// ProtectedRoute component
+export function ProtectedRoute({ children }) {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    return children; // Allow access to protected pages
+  } else {
+    return <Navigate to="/login" />; // Redirect to login if not authenticated
+  }
+}
+
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegistrationPage />} />
-        <Route path="/profile" element={<UserProfilePage />} />
-      </Routes>
-    </Router>
+    <div className="App">
+      <Router>
+        <Routes>
+          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
