@@ -88,17 +88,22 @@ const DefaultLayout = ({ children, currentUser }) => {
             {
               key: '1',
               icon: <UserOutlined />,
-              label: <Link to="/">Home</Link>,
+              label: <Link to="/">Dashboard</Link>,
             },
             {
               key: '2',
               icon: <VideoCameraOutlined />,
-              label: <Link to="/about">About</Link>,
+              label: <Link to="/transactions">Transactions</Link>,
             },
             {
               key: '3',
-              icon: <UploadOutlined />,
-              label: 'nav 3',
+              icon: <VideoCameraOutlined />,
+              label: <Link to="/accounts">Accounts</Link>,
+            },
+            {
+              key: '4',
+              icon: <VideoCameraOutlined />,
+              label: <Link to="/reports">Reports</Link>,
             },
           ]}
         />
@@ -135,7 +140,7 @@ const DefaultLayout = ({ children, currentUser }) => {
         <Footer style={{ textAlign: 'center' }}>©2023 Created by CodeOfAfrica</Footer>
       </Layout>
 
-      <Modal title="User Profile" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="User Profile" open={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         {user && (
           <div>
             <p><strong>Name:</strong> {user.name}</p>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Input, Select, message } from 'antd';
+import DefaultLayout from '../components/DefaultLayout';
 import axios from 'axios';
+
 
 const { Option } = Select;
 
@@ -139,6 +141,7 @@ const TransactionManagement = () => {
 
   return (
     <div>
+        <DefaultLayout>
       <Button type="primary" onClick={handleAdd}>Add Transaction</Button>
       <Table columns={columns} dataSource={transactions} loading={loading} rowKey="_id" />
       <div>
@@ -197,6 +200,7 @@ const TransactionManagement = () => {
           </Form.Item>
         </Form>
       </Modal>
+      </DefaultLayout>
     </div>
   );
 };
