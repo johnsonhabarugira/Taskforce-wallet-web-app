@@ -47,6 +47,32 @@ router.get('/transactions/account/:accountId', async (req, res) => {
   }
 });
 
+// Get total income
+router.get('/total-income', async (req, res) => {
+  try {
+    const totalIncome = await Transaction.aggregate([
+      { $match: { type: 'Income' } },
+      { $group: { _id: null, total: { $sum: '$amount' } } }
+    ]);
+    res.status(200).json({ totalIncome: totalIncome[0]?.total || 0 });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get total expenses
+router.get('/total-expenses', async (req, res) => {
+  try {
+    const totalExpenses = await Transaction.aggregate([
+      { $match: { type: 'Expense' } },
+      { $group: { _id: null, total: { $sum: '$amount' } } }
+    ]);
+    res.status(200).json({ totalExpenses: totalExpenses[0]?.total || 0 });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Delete a transaction
 router.delete('/transactions/:id', async (req, res) => {
   try {
