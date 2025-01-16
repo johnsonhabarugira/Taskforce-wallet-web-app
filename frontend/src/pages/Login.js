@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const { Header, Content } = Layout;
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 const Login = () => {
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
@@ -31,7 +31,7 @@ const Login = () => {
   const handleLogin = async (values) => {
     try {
       setLoading(true);
-      const response = await axios.post('/api/auth/login', values); // Adjust the URL as needed
+      const response = await axios.post('/api/auth/login', values); 
       message.success('Login successful!');
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -47,10 +47,10 @@ const Login = () => {
   const handleRegister = async (values) => {
     try {
       setLoading(true);
-      await axios.post('/api/auth/register', values); // Adjust the URL as needed
+      await axios.post('/api/auth/register', values); 
       message.success('Registration successful!');
-      setIsRegisterModalVisible(false); // Close the Register modal
-      setIsLoginModalVisible(true); // Open the Login modal
+      setIsRegisterModalVisible(false); 
+      setIsLoginModalVisible(true); 
     } catch (error) {
       message.error('Registration failed!');
     } finally {
@@ -71,10 +71,8 @@ const Login = () => {
       </Header>
 
       <Content style={{ padding: '50px', textAlign: 'center' }}>
-        <Title level={2}>Your One-Stop Solution</Title>
-        <Paragraph>
-          Experience the best tools and services to simplify your work and achieve your goals.
-        </Paragraph>
+        <Title level={2}>TaskForce Wallet App Challenge </Title>
+      
         <Button type="primary" size="large" onClick={showLoginModal}>
           Login
         </Button>

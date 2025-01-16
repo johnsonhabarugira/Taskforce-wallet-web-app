@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Card, Typography, Table } from 'antd';
+import { Row, Col, Card, Typography, Table, Button, Space } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import StatisticsChart from '../components/StatisticsChart';
 import PieChart from '../components/PieChart';
 import DefaultLayout from '../components/DefaultLayout';
@@ -16,6 +17,8 @@ const Home = () => {
     transactions: [],
     pieChartData: [],
   });
+
+  const navigate = useNavigate();
 
   // Fetch data
   const fetchData = async () => {
@@ -38,6 +41,10 @@ const Home = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
 
   const columns = [
     {
@@ -64,31 +71,48 @@ const Home = () => {
 
   return (
     <DefaultLayout>
-      <div style={{ padding: '20px' }}>
+      <div style={{ padding: '20px',backgroundColor: '#f0f2f5' }}>
+        {/* Top Buttons */}
+        <Row gutter={16} style={{ marginBottom: '20px' }}>
+          <Col span={24}>
+            <Space>
+              <Button type="primary" onClick={() => handleNavigate('/accounts')}>
+                Add Account
+              </Button>
+              <Button type="primary" onClick={() => handleNavigate('/transactions')}>
+                Add Transaction
+              </Button>
+              <Button type="default" onClick={() => handleNavigate('/reports')}>
+                Go to Reports
+              </Button>
+            </Space>
+          </Col>
+        </Row>
+
         {/* Top Row: Summary Cards */}
         <Row gutter={16} style={{ marginBottom: '20px' }}>
           <Col span={6}>
-            <Card>
+            <Card style={{ height: '120px' }}>
               <Title level={5}>Income (This Month)</Title>
-              <p>${data.income}</p>
+              <p>RWF {data.income}</p>
             </Card>
           </Col>
           <Col span={6}>
-            <Card>
+            <Card style={{ height: '120px' }}>
               <Title level={5}>Expenses (This Month)</Title>
-              <p>${data.expenses}</p>
+              <p>RWF {data.expenses}</p>
             </Card>
           </Col>
           <Col span={6}>
-            <Card>
+            <Card style={{ height: '120px' }}>
               <Title level={5}>Total Income</Title>
-              <p>${data.totalIncome}</p>
+              <p>RWF {data.totalIncome}</p>
             </Card>
           </Col>
           <Col span={6}>
-            <Card>
+            <Card style={{ height: '120px' }}>
               <Title level={5}>Total Expenses</Title>
-              <p>${data.totalExpenses}</p>
+              <p>RWF{data.totalExpenses}</p>
             </Card>
           </Col>
         </Row>
@@ -96,13 +120,13 @@ const Home = () => {
         {/* Second Row: Charts */}
         <Row gutter={16} style={{ marginBottom: '20px' }}>
           <Col span={16}>
-            <Card>
+            <Card >
               <Title level={5}>Income & Expenses Statistics</Title>
               <StatisticsChart data={data.transactions} />
             </Card>
           </Col>
           <Col span={8}>
-            <Card>
+            <Card >
               <Title level={5}>Expenses by Category</Title>
               <PieChart data={data.pieChartData} />
             </Card>
