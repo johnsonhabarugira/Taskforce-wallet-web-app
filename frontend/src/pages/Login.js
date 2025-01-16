@@ -31,7 +31,7 @@ const Login = () => {
   const handleLogin = async (values) => {
     try {
       setLoading(true);
-      const response = await axios.post('/api/auth/login', values); 
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, values); 
       message.success('Login successful!');
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -47,7 +47,7 @@ const Login = () => {
   const handleRegister = async (values) => {
     try {
       setLoading(true);
-      await axios.post('/api/auth/register', values); 
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/register`, values); 
       message.success('Registration successful!');
       setIsRegisterModalVisible(false); 
       setIsLoginModalVisible(true); 

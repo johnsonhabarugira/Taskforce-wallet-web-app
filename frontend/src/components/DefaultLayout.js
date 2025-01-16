@@ -63,8 +63,8 @@ const DefaultLayout = ({ children, currentUser }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Remove token from localStorage
-    navigate('/login'); // Redirect to login page
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   const userMenu = (
@@ -150,7 +150,7 @@ const DefaultLayout = ({ children, currentUser }) => {
           style={{
             margin: '24px 16px',
             padding: 24,
-            minHeight: 'calc(100vh - 134px)', // Account for Header and Footer height
+            minHeight: 'calc(100vh - 134px)',
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
           }}

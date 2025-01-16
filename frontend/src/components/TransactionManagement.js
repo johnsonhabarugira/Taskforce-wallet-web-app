@@ -24,7 +24,7 @@ const TransactionManagement = () => {
   const fetchTransactions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/api/transactions');
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/transactions`);
       setTransactions(response.data);
     } catch (error) {
       message.error('Failed to fetch transactions');
@@ -35,7 +35,7 @@ const TransactionManagement = () => {
 
   const fetchTotalIncome = async () => {
     try {
-      const response = await axios.get('/api/transactions/total-income');
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/transactions/total-income`);
       setTotalIncome(response.data.totalIncome);
     } catch (error) {
       message.error('Failed to fetch total income');
@@ -44,7 +44,7 @@ const TransactionManagement = () => {
 
   const fetchTotalExpenses = async () => {
     try {
-      const response = await axios.get('/api/transactions/total-expenses');
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/transactions/total-expenses`);
       setTotalExpenses(response.data.totalExpenses);
     } catch (error) {
       message.error('Failed to fetch total expenses');
@@ -53,7 +53,7 @@ const TransactionManagement = () => {
 
   const fetchAccounts = async () => {
     try {
-      const response = await axios.get('/api/accounts');
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/accounts`);
       setAccounts(response.data);
     } catch (error) {
       message.error('Failed to fetch accounts');
@@ -72,7 +72,7 @@ const TransactionManagement = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/transactions/${id}`);
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/transactions/${id}`);
       message.success('Transaction deleted successfully');
       fetchTransactions();
       fetchTotalIncome();
@@ -102,10 +102,10 @@ const TransactionManagement = () => {
 
     try {
       if (currentTransaction) {
-        await axios.put(`/api/transactions/edit/${currentTransaction._id}`, values);
+        await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/transactions/edit/${currentTransaction._id}`, values);
         message.success('Transaction updated successfully');
       } else {
-        await axios.post('/api/transactions/add', values);
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/transactions/add`, values);
         message.success('Transaction added successfully');
       }
       fetchTransactions();

@@ -22,7 +22,7 @@ const PieChart = ({ data }) => {
   };
 
   const options = {
-    maintainAspectRatio: false, // Allows custom resizing
+    maintainAspectRatio: false, 
     plugins: {
       legend: {
         position: 'bottom',
@@ -31,7 +31,7 @@ const PieChart = ({ data }) => {
   };
 
   return (
-    <div style={{ height: '200px', width: '100%' }}> {/* Fixed height */}
+    <div style={{ height: '200px', width: '100%' }}> 
       <Pie data={chartData} options={options} />
     </div>
   );

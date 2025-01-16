@@ -18,7 +18,7 @@ const AccountManagement = () => {
   const fetchAccounts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/api/accounts');
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/accounts`);
       setAccounts(response.data);
     } catch (error) {
       message.error('Failed to fetch accounts');
@@ -39,9 +39,9 @@ const AccountManagement = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/accounts/delete/${id}`);
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/accounts/delete/${id}`);
       message.success('Account deleted successfully');
-      fetchAccounts(); // Refresh the list after deletion
+      fetchAccounts(); 
     } catch (error) {
       message.error('Failed to delete account');
     }
@@ -50,15 +50,16 @@ const AccountManagement = () => {
   const handleOk = async (values) => {
     try {
       if (currentAccount) {
-        // Edit the account (PUT request)
-        await axios.put(`/api/accounts/edit/${currentAccount._id}`, values);
+        
+
+        await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/accounts/edit/${currentAccount._id}`, values);
         message.success('Account updated successfully');
       } else {
-        // Add a new account (POST request)
-        await axios.post('/api/accounts/add', values);
+        
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/accounts/add`, values);
         message.success('Account added successfully');
       }
-      fetchAccounts(); // Refresh the list after add/edit
+      fetchAccounts(); 
       setIsModalVisible(false);
     } catch (error) {
       message.error('Failed to save account');
@@ -115,7 +116,7 @@ const AccountManagement = () => {
         footer={null}
       >
         <Form
-          initialValues={currentAccount || { name: '', type: '', balance: 0, limit: '' }} // Default to empty or current account data
+          initialValues={currentAccount || { name: '', type: '', balance: 0, limit: '' }} 
           onFinish={handleOk}
         >
           <Form.Item
@@ -146,7 +147,7 @@ const AccountManagement = () => {
           <Form.Item
             label="Limit"
             name="limit"
-            rules={[{ required: false }]} // Limit is optional
+            rules={[{ required: false }]}
           >
             <Input type="number" placeholder="Leave blank for no limit" />
           </Form.Item>

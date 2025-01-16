@@ -18,7 +18,7 @@ const Reports = () => {
   const fetchTransactions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/api/transactions'); // Replace with your API endpoint
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/transactions`); // Replace with your API endpoint
       setTransactions(response.data);
       setFilteredTransactions(response.data); // Set the initial filtered data
     } catch (error) {

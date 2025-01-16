@@ -23,8 +23,8 @@ const Home = () => {
   // Fetch data
   const fetchData = async () => {
     try {
-      const { data: summary } = await axios.get('/api/summary/summary');
-      const { data: transactions } = await axios.get('/api/summary/transactions/recent');
+      const { data: summary } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/summary/summary`);
+      const { data: transactions } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/summary/transactions/recent`);
       setData({
         income: summary.monthlyIncome,
         expenses: summary.monthlyExpenses,

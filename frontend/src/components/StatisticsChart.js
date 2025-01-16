@@ -28,7 +28,7 @@ const StatisticsChart = () => {
 
   const fetchData = async () => {
     try {
-      const { data } = await axios.get('/api/summary/statistics/last4weeks');
+      const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/summary/statistics/last4weeks`);
       console.log('Fetched Data:', data);
       const labels = data.map((item) => `Week ${item._id}`);
       const incomeData = data.map((item) => item.data.find((d) => d.type === 'Income')?.total || 0);
@@ -64,7 +64,7 @@ const StatisticsChart = () => {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, // Allows custom resizing
+    maintainAspectRatio: false, 
     plugins: {
       legend: {
         position: 'top',
@@ -73,7 +73,7 @@ const StatisticsChart = () => {
   };
 
   return (
-    <div style={{ height: '200px', width: '100%' }}> {/* Set height to 200px */}
+    <div style={{ height: '200px', width: '100%' }}>
       <Line data={chartData} options={options} />
     </div>
   );
