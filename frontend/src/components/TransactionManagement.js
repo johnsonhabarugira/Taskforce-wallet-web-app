@@ -3,7 +3,6 @@ import { Table, Button, Modal, Form, Input, Select, message } from 'antd';
 import DefaultLayout from '../components/DefaultLayout';
 import axios from 'axios';
 
-
 const { Option } = Select;
 
 const TransactionManagement = () => {
@@ -84,6 +83,23 @@ const TransactionManagement = () => {
   };
 
   const handleOk = async (values) => {
+    const { amount, account, type } = values;
+
+    // Find the selected account to check balance and limit
+    const selectedAccount = accounts.find(acc => acc._id === account);
+    if (!selectedAccount) {
+      message.error('Account not found');
+      return;
+    }
+
+    // Check if the transaction exceeds the account's balance and limit
+    if (selectedAccount.limit !== Infinity && type === 'Expense') {
+      if (selectedAccount.balance - amount < selectedAccount.limit) {
+        message.error('Transaction exceeds the account limit');
+        return;
+      }
+    }
+
     try {
       if (currentTransaction) {
         await axios.put(`/api/transactions/edit/${currentTransaction._id}`, values);
@@ -161,8 +177,7 @@ const TransactionManagement = () => {
           <Form.Item
             label="Type"
             name="type"
-            rules={[{ required: true, message: 'Please select the transaction type!' }]}
-          >
+            rules={[{ required: true, message: 'Please select the transaction type!' }]}>
             <Select>
               <Option value="Income">Income</Option>
               <Option value="Expense">Expense</Option>
@@ -171,15 +186,13 @@ const TransactionManagement = () => {
           <Form.Item
             label="Amount"
             name="amount"
-            rules={[{ required: true, message: 'Please input the transaction amount!' }]}
-          >
+            rules={[{ required: true, message: 'Please input the transaction amount!' }]}>
             <Input type="number" />
           </Form.Item>
           <Form.Item
             label="Account"
             name="account"
-            rules={[{ required: true, message: 'Please select the account!' }]}
-          >
+            rules={[{ required: true, message: 'Please select the account!' }]}>
             <Select>
               {accounts.map(account => (
                 <Option key={account._id} value={account._id}>{account.name}</Option>
@@ -189,8 +202,7 @@ const TransactionManagement = () => {
           <Form.Item
             label="Category"
             name="category"
-            rules={[{ required: true, message: 'Please input the transaction category!' }]}
-          >
+            rules={[{ required: true, message: 'Please input the transaction category!' }]}>
             <Input />
           </Form.Item>
           <Form.Item>

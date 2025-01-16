@@ -41,7 +41,7 @@ const AccountManagement = () => {
     try {
       await axios.delete(`/api/accounts/delete/${id}`);
       message.success('Account deleted successfully');
-      fetchAccounts();
+      fetchAccounts(); // Refresh the list after deletion
     } catch (error) {
       message.error('Failed to delete account');
     }
@@ -50,13 +50,15 @@ const AccountManagement = () => {
   const handleOk = async (values) => {
     try {
       if (currentAccount) {
+        // Edit the account (PUT request)
         await axios.put(`/api/accounts/edit/${currentAccount._id}`, values);
         message.success('Account updated successfully');
       } else {
+        // Add a new account (POST request)
         await axios.post('/api/accounts/add', values);
         message.success('Account added successfully');
       }
-      fetchAccounts();
+      fetchAccounts(); // Refresh the list after add/edit
       setIsModalVisible(false);
     } catch (error) {
       message.error('Failed to save account');
@@ -84,6 +86,12 @@ const AccountManagement = () => {
       key: 'balance',
     },
     {
+      title: 'Limit',
+      dataIndex: 'limit',
+      key: 'limit',
+      render: (text) => (text === Infinity ? 'Unlimited' : text),
+    },
+    {
       title: 'Actions',
       key: 'actions',
       render: (text, record) => (
@@ -107,7 +115,7 @@ const AccountManagement = () => {
         footer={null}
       >
         <Form
-          initialValues={currentAccount}
+          initialValues={currentAccount || { name: '', type: '', balance: 0, limit: '' }} // Default to empty or current account data
           onFinish={handleOk}
         >
           <Form.Item
@@ -134,6 +142,13 @@ const AccountManagement = () => {
             rules={[{ required: true, message: 'Please input the account balance!' }]}
           >
             <Input type="number" />
+          </Form.Item>
+          <Form.Item
+            label="Limit"
+            name="limit"
+            rules={[{ required: false }]} // Limit is optional
+          >
+            <Input type="number" placeholder="Leave blank for no limit" />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
