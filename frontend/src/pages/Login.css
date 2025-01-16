@@ -1,0 +1,98 @@
+/* LandingPage.css */
+
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  /* Header Styles */
+  .ant-layout-header {
+    background-color: #1890ff;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  /* Content Styles */
+  .ant-layout-content {
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  .ant-layout-content h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .ant-layout-content p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px;
+  }
+  
+  .ant-layout-content .ant-btn-primary {
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  /* Footer Styles */
+  .ant-layout-footer {
+    background-color: #001529;
+    color: #fff;
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 14px;
+  }
+  
+  /* Modal Styles */
+  .ant-modal-title {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .ant-modal .ant-btn {
+    border-radius: 5px;
+  }
+  
+  /* Form Styles */
+  .ant-form-item {
+    margin-bottom: 16px;
+  }
+  
+  .ant-input,
+  .ant-input-password {
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .ant-btn {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .ant-layout-content {
+      padding: 30px 15px;
+    }
+  
+    .ant-layout-content h1 {
+      font-size: 28px;
+    }
+  
+    .ant-layout-content p {
+      font-size: 16px;
+    }
+  }
+  

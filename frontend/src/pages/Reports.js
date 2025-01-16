@@ -55,11 +55,6 @@ const Reports = () => {
       key: 'date',
     },
     {
-      title: 'Description',
-      dataIndex: 'description',
-      key: 'description',
-    },
-    {
       title: 'Amount',
       dataIndex: 'amount',
       key: 'amount',

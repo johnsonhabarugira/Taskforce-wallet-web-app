@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
+  LineChartOutlined,
+  BankOutlined,
+  TransactionOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  FileDoneOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme, Avatar, Dropdown, Modal } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
@@ -77,8 +79,18 @@ const DefaultLayout = ({ children, currentUser }) => {
   );
 
   return (
-    <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        style={{
+          position: 'fixed',
+          height: '100vh',
+          left: 0,
+          overflow: 'auto',
+        }}
+      >
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
@@ -87,28 +99,28 @@ const DefaultLayout = ({ children, currentUser }) => {
           items={[
             {
               key: '1',
-              icon: <UserOutlined />,
-              label: <Link to="/">Dashboard</Link>,
+              icon: <LineChartOutlined />,
+              label: <Link to="/home">Dashboard</Link>,
             },
             {
               key: '2',
-              icon: <VideoCameraOutlined />,
+              icon: <TransactionOutlined />,
               label: <Link to="/transactions">Transactions</Link>,
             },
             {
               key: '3',
-              icon: <VideoCameraOutlined />,
+              icon: <BankOutlined />,
               label: <Link to="/accounts">Accounts</Link>,
             },
             {
               key: '4',
-              icon: <VideoCameraOutlined />,
+              icon: <FileDoneOutlined />,
               label: <Link to="/reports">Reports</Link>,
             },
           ]}
         />
       </Sider>
-      <Layout>
+      <Layout style={{ marginLeft: collapsed ? 80 : 200, transition: 'margin-left 0.2s' }}>
         <Header style={{ padding: 0, background: colorBgContainer }}>
           <Button
             type="text"
@@ -134,10 +146,20 @@ const DefaultLayout = ({ children, currentUser }) => {
             </Dropdown>
           </div>
         </Header>
-        <Content style={{ margin: '24px 16px', padding: 24, minHeight: 280, background: colorBgContainer, borderRadius: borderRadiusLG }}>
+        <Content
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            minHeight: 'calc(100vh - 134px)', // Account for Header and Footer height
+            background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+          }}
+        >
           {children}
         </Content>
-        <Footer style={{ textAlign: 'center' }}>©2023 Created by CodeOfAfrica</Footer>
+        <Footer style={{ textAlign: 'center', position: 'sticky', bottom: 0 }}>
+          ©2025 Created by CodeOfAfrica Applicant
+        </Footer>
       </Layout>
 
       <Modal title="User Profile" open={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
@@ -145,7 +167,6 @@ const DefaultLayout = ({ children, currentUser }) => {
           <div>
             <p><strong>Name:</strong> {user.name}</p>
             <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Role:</strong> {user.role}</p>
           </div>
         )}
       </Modal>
