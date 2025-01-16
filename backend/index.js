@@ -15,7 +15,8 @@ const app = express();
 
 // Middleware
 app.use(express.json()); // Parse JSON payloads
-app.use(cors());         // Enable CORS
+app.use(cors({ origin: '*' })); //
+
 
 // Routes
 app.use("/api/auth", require("./routes/auth"));
