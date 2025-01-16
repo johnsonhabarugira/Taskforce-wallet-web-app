@@ -19,6 +19,7 @@ app.use(cors());         // Enable CORS
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/accounts/", require("./routes/accountRoutes"))
 app.use("/api/transactions/", require("./routes/transactionRoutes"))
+app.use("/api/summary", require("./routes/summaryRoutes"));
 
 // Error handling middleware (should be the last middleware)
 app.use(errorMiddleware);

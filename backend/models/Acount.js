@@ -18,6 +18,10 @@ const AccountSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  limit: {
+    type: Number,
+    default: Infinity, // Default limit is Infinity
+  },
 });
 
 module.exports = mongoose.model('Account', AccountSchema);

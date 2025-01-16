@@ -13,16 +13,22 @@ router.post('/add', async (req, res) => {
       return res.status(400).json({ error: 'Type, amount, account, and category are required' });
     }
 
-    // Save the transaction
-    const transaction = new Transaction(req.body);
-    const savedTransaction = await transaction.save();
-
-    // Update the account balance
+    // Find the account to check its limit
     const accountToUpdate = await Account.findById(account);
     if (!accountToUpdate) {
       return res.status(404).json({ error: 'Account not found' });
     }
 
+    // Check if the limit is set and if the transaction exceeds the limit
+    if (accountToUpdate.limit !== Infinity && type === 'Expense' && accountToUpdate.balance - amount < accountToUpdate.limit) {
+      return res.status(400).json({ error: 'Transaction exceeds the account limit' });
+    }
+
+    // Save the transaction
+    const transaction = new Transaction(req.body);
+    const savedTransaction = await transaction.save();
+
+    // Update the account balance
     if (type === 'Income') {
       accountToUpdate.balance += amount;
     } else if (type === 'Expense') {
@@ -36,6 +42,37 @@ router.post('/add', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// Edit a transaction
+router.put('/edit/:id', async (req, res) => {
+  try {
+    const { type, amount, account } = req.body;
+
+    // Validate required fields
+    if (!type || !amount || !account) {
+      return res.status(400).json({ error: 'Type, amount, and account are required' });
+    }
+
+    // Find the account to check its limit
+    const accountToUpdate = await Account.findById(account);
+    if (!accountToUpdate) {
+      return res.status(404).json({ error: 'Account not found' });
+    }
+
+    // Check if the limit is set and if the transaction exceeds the limit
+    if (accountToUpdate.limit !== Infinity && type === 'Expense' && accountToUpdate.balance - amount < accountToUpdate.limit) {
+      return res.status(400).json({ error: 'Transaction exceeds the account limit' });
+    }
+
+    // Update the transaction
+    const updatedTransaction = await Transaction.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(updatedTransaction);
+  } catch (error) {
+    console.error('Error updating transaction:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 // Get all transactions
 router.get('/', async (req, res) => {
@@ -59,49 +96,67 @@ router.get('/transactions/account/:accountId', async (req, res) => {
 
 // Get total income
 router.get('/total-income', async (req, res) => {
-  try {
-    const totalIncome = await Transaction.aggregate([
-      { $match: { type: 'Income' } },
-      { $group: { _id: null, total: { $sum: '$amount' } } }
-    ]);
-    res.status(200).json({ totalIncome: totalIncome[0]?.total || 0 });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Get total expenses
-router.get('/total-expenses', async (req, res) => {
-  try {
-    const totalExpenses = await Transaction.aggregate([
-      { $match: { type: 'Expense' } },
-      { $group: { _id: null, total: { $sum: '$amount' } } }
-    ]);
-    res.status(200).json({ totalExpenses: totalExpenses[0]?.total || 0 });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Delete a transaction
-router.delete('/transactions/:id', async (req, res) => {
-  try {
-    const transaction = await Transaction.findById(req.params.id);
-
-    // Update the account balance before deleting
-    const account = await Account.findById(transaction.account);
-    if (transaction.type === 'Income') {
-      account.balance -= transaction.amount;
-    } else if (transaction.type === 'Expense') {
-      account.balance += transaction.amount;
+    try {
+      const totalIncome = await Transaction.aggregate([
+        { $match: { type: 'Income' } },
+        { $group: { _id: null, total: { $sum: '$amount' } } }
+      ]);
+      res.status(200).json({ totalIncome: totalIncome[0]?.total || 0 });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
-    await account.save();
-
-    await transaction.remove();
-    res.status(200).json({ message: 'Transaction deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
+  });
+  
+  // Get total expenses
+  router.get('/total-expenses', async (req, res) => {
+    try {
+      const totalExpenses = await Transaction.aggregate([
+        { $match: { type: 'Expense' } },
+        { $group: { _id: null, total: { $sum: '$amount' } } }
+      ]);
+      res.status(200).json({ totalExpenses: totalExpenses[0]?.total || 0 });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
+  router.delete('/:id', async (req, res) => {
+    try {
+      console.log('Deleting transaction with ID:', req.params.id);
+  
+      const transaction = await Transaction.findById(req.params.id);
+      if (!transaction) {
+        console.log('Transaction not found');
+        return res.status(404).json({ error: 'Transaction not found' });
+      }
+  
+      console.log('Found transaction:', transaction);
+  
+      const account = await Account.findById(transaction.account);
+      if (!account) {
+        console.log('Account not found');
+        return res.status(404).json({ error: 'Account not found' });
+      }
+  
+      console.log('Found account:', account);
+  
+      // Update balance based on the transaction type
+      if (transaction.type === 'Income') {
+        account.balance -= transaction.amount;
+      } else if (transaction.type === 'Expense') {
+        account.balance += transaction.amount;
+      }
+      await account.save();
+  
+      // Delete the transaction
+      await Transaction.findByIdAndDelete(req.params.id);
+      console.log('Transaction deleted successfully');
+  
+      res.status(200).json({ message: 'Transaction deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting transaction:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
 module.exports = router;

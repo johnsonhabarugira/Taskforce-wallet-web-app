@@ -5,7 +5,15 @@ const Account = require('../models/Acount');
 // Create an account
 router.post('/add', async (req, res) => {
   try {
-    const account = new Account(req.body);
+    const { name, type, balance, limit } = req.body;
+
+    const account = new Account({
+      name,
+      type,
+      balance: balance || 0,
+      limit: limit !== undefined ? limit : Infinity, // Use user-provided limit or default to Infinity
+    });
+
     const savedAccount = await account.save();
     res.status(201).json(savedAccount);
   } catch (error) {
