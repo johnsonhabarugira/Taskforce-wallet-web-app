@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const connectDB = require("./config/db");
 const errorMiddleware = require("./middleware/errorMiddleware");
 
+const serverless = require("serverless-http"); 
+
 // Load environment variables
 dotenv.config();
 
