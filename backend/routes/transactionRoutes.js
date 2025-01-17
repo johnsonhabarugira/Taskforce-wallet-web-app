@@ -8,27 +8,21 @@ router.post('/add', async (req, res) => {
   try {
     const { type, amount, account, category } = req.body;
 
-    // Validate required fields
     if (!type || !amount || !account || !category) {
       return res.status(400).json({ error: 'Type, amount, account, and category are required' });
     }
 
-    // Find the account to check its limit
     const accountToUpdate = await Account.findById(account);
     if (!accountToUpdate) {
       return res.status(404).json({ error: 'Account not found' });
     }
-
-    // Check if the limit is set and if the transaction exceeds the limit
     if (accountToUpdate.limit !== Infinity && type === 'Expense' && accountToUpdate.balance - amount < accountToUpdate.limit) {
       return res.status(400).json({ error: 'Transaction exceeds the account limit' });
     }
 
-    // Save the transaction
     const transaction = new Transaction(req.body);
     const savedTransaction = await transaction.save();
 
-    // Update the account balance
     if (type === 'Income') {
       accountToUpdate.balance += amount;
     } else if (type === 'Expense') {
@@ -48,23 +42,19 @@ router.put('/edit/:id', async (req, res) => {
   try {
     const { type, amount, account } = req.body;
 
-    // Validate required fields
     if (!type || !amount || !account) {
       return res.status(400).json({ error: 'Type, amount, and account are required' });
     }
 
-    // Find the account to check its limit
     const accountToUpdate = await Account.findById(account);
     if (!accountToUpdate) {
       return res.status(404).json({ error: 'Account not found' });
     }
 
-    // Check if the limit is set and if the transaction exceeds the limit
     if (accountToUpdate.limit !== Infinity && type === 'Expense' && accountToUpdate.balance - amount < accountToUpdate.limit) {
       return res.status(400).json({ error: 'Transaction exceeds the account limit' });
     }
 
-    // Update the transaction
     const updatedTransaction = await Transaction.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.status(200).json(updatedTransaction);
   } catch (error) {

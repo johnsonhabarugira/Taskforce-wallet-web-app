@@ -21,14 +21,13 @@ const DefaultLayout = ({ children, currentUser }) => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  // Get user info from token in localStorage
   const token = localStorage.getItem('token');
   let user = null;
 
   if (token) {
     try {
-      const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode token to get user info
-      const currentTime = Date.now() / 1000; // Current time in seconds
+      const decodedToken = JSON.parse(atob(token.split('.')[1])); 
+      const currentTime = Date.now() / 1000; 
 
       // Check if the token is expired
       if (decodedToken.exp < currentTime) {

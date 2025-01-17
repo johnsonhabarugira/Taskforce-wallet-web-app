@@ -20,7 +20,7 @@ const AccountSchema = new mongoose.Schema({
   },
   limit: {
     type: Number,
-    default: Infinity, // Default limit is Infinity
+    default: Infinity, 
   },
 });
 

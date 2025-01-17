@@ -5,17 +5,13 @@ const mongoose = require('mongoose');
 const connectDB = require("./config/db");
 const errorMiddleware = require("./middleware/errorMiddleware");
 
-// const serverless = require("serverless-http"); 
-
-// Load environment variables
 dotenv.config();
 
 connectDB();
 const app = express();
 
-// Middleware
-app.use(express.json()); // Parse JSON payloads
-app.use(cors({ origin: '*' })); //
+app.use(express.json()); 
+app.use(cors({ origin: '*' }));
 
 
 // Routes
@@ -24,7 +20,7 @@ app.use("/api/accounts/", require("./routes/accountRoutes"))
 app.use("/api/transactions/", require("./routes/transactionRoutes"))
 app.use("/api/summary", require("./routes/summaryRoutes"));
 
-// Error handling middleware (should be the last middleware)
+// Error handling middleware
 app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 5000;

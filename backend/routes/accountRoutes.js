@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Account = require('../models/Acount');
-
+//@route   POST /api/account/add
 // Create an account
 router.post('/add', async (req, res) => {
   try {
@@ -11,7 +11,7 @@ router.post('/add', async (req, res) => {
       name,
       type,
       balance: balance || 0,
-      limit: limit !== undefined ? limit : Infinity, // Use user-provided limit or default to Infinity
+      limit: limit !== undefined ? limit : Infinity, 
     });
 
     const savedAccount = await account.save();
@@ -20,7 +20,7 @@ router.post('/add', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
+//@route   GET /api/account/
 // Get all accounts
 router.get('/', async (req, res) => {
   try {
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
+//@route   PUT /api/account/edit/:id
 // Update account balance
 router.put('/edit/:id', async (req, res) => {
   try {
@@ -42,7 +42,7 @@ router.put('/edit/:id', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
+//@route   POST /api/account/delete/:id
 // Delete an account
 router.delete('/delete/:id', async (req, res) => {
   try {

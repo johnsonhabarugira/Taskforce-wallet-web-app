@@ -18,9 +18,9 @@ const Reports = () => {
   const fetchTransactions = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/transactions`); // Replace with your API endpoint
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/transactions`);
       setTransactions(response.data);
-      setFilteredTransactions(response.data); // Set the initial filtered data
+      setFilteredTransactions(response.data);
     } catch (error) {
       message.error('Failed to fetch transactions');
     } finally {
@@ -30,7 +30,7 @@ const Reports = () => {
 
   const handleDateFilter = (dates) => {
     if (!dates || dates.length === 0) {
-      setFilteredTransactions(transactions); // Reset to all transactions if no dates are selected
+      setFilteredTransactions(transactions); 
     } else {
       const [startDate, endDate] = dates;
       const filtered = transactions.filter((transaction) => {
@@ -58,7 +58,7 @@ const Reports = () => {
       title: 'Amount',
       dataIndex: 'amount',
       key: 'amount',
-      render: (amount) => `$${amount.toFixed(2)}`, // Format amount as currency
+      render: (amount) => `$${amount.toFixed(2)}`, 
     },
     {
       title: 'Type',
@@ -84,7 +84,7 @@ const Reports = () => {
         columns={columns}
         dataSource={filteredTransactions}
         loading={loading}
-        rowKey="_id" // Assuming transactions have a unique `_id` field
+        rowKey="_id" 
       />
       </DefaultLayout>
     </div>

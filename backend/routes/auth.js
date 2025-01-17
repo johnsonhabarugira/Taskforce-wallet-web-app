@@ -62,7 +62,7 @@ router.get("/profile", authMiddleware, async (req, res) => {
 });
 
 // // @route   DELETE /api/auth/delete
-// // @desc    Delete user (protected route)
+// // @desc    Delete 
 router.delete('/delete', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);

@@ -72,7 +72,7 @@ const Home = () => {
   return (
     <DefaultLayout>
       <div style={{ padding: '20px',backgroundColor: '#f0f2f5' }}>
-        {/* Top Buttons */}
+       
         <Row gutter={16} style={{ marginBottom: '20px' }}>
           <Col span={24}>
             <Space>
@@ -89,7 +89,7 @@ const Home = () => {
           </Col>
         </Row>
 
-        {/* Top Row: Summary Cards */}
+        
         <Row gutter={16} style={{ marginBottom: '20px' }}>
           <Col span={6}>
             <Card style={{ height: '120px' }}>
@@ -117,7 +117,7 @@ const Home = () => {
           </Col>
         </Row>
 
-        {/* Second Row: Charts */}
+        
         <Row gutter={16} style={{ marginBottom: '20px' }}>
           <Col span={16}>
             <Card >
@@ -133,7 +133,6 @@ const Home = () => {
           </Col>
         </Row>
 
-        {/* Third Row: Recent Transactions */}
         <Row>
           <Col span={24}>
             <Card>

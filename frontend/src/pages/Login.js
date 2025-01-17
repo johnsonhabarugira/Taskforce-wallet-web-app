@@ -117,7 +117,6 @@ const Login = () => {
         </Form>
       </Modal>
 
-      {/* Register Modal */}
       <Modal
         title="Register"
         visible={isRegisterModalVisible}

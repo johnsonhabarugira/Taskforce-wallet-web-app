@@ -74,8 +74,8 @@ router.get('/statistics/weekly', async (req, res) => {
     endOfWeek.setDate(endOfWeek.getDate() + 6);
     endOfWeek.setHours(23, 59, 59, 999);
 
-    console.log('Start of Week:', startOfWeek); // Add logging here
-    console.log('End of Week:', endOfWeek); // Add logging here
+    // console.log('Start of Week:', startOfWeek); 
+    // console.log('End of Week:', endOfWeek); 
 
     const weeklyData = await Transaction.aggregate([
       { $match: { date: { $gte: startOfWeek, $lte: endOfWeek } } },
@@ -102,11 +102,11 @@ router.get('/statistics/weekly', async (req, res) => {
       { $sort: { _id: 1 } },
     ]);
 
-    console.log('Weekly Data:', weeklyData); // Add logging here
+    // console.log('Weekly Data:', weeklyData); 
 
     res.status(200).json(weeklyData);
   } catch (error) {
-    console.error('Error fetching weekly statistics:', error); // Add logging here
+    console.error('Error fetching weekly statistics:', error); 
     res.status(500).json({ error: error.message });
   }
 });
@@ -135,15 +135,16 @@ router.get('/statistics/last4weeks', async (req, res) => {
     const startOfWeek4 = new Date(endOfWeek3);
     startOfWeek4.setDate(startOfWeek4.getDate() + 1);
     const endOfWeek4 = new Date(endOfCurrentMonth);
+// console statistics Data
 
-    console.log('Start of Week 1:', startOfWeek1);
-    console.log('End of Week 1:', endOfWeek1);
-    console.log('Start of Week 2:', startOfWeek2);
-    console.log('End of Week 2:', endOfWeek2);
-    console.log('Start of Week 3:', startOfWeek3);
-    console.log('End of Week 3:', endOfWeek3);
-    console.log('Start of Week 4:', startOfWeek4);
-    console.log('End of Week 4:', endOfWeek4);
+    // console.log('Start of Week 1:', startOfWeek1);
+    // console.log('End of Week 1:', endOfWeek1);
+    // console.log('Start of Week 2:', startOfWeek2);
+    // console.log('End of Week 2:', endOfWeek2);
+    // console.log('Start of Week 3:', startOfWeek3);
+    // console.log('End of Week 3:', endOfWeek3);
+    // console.log('Start of Week 4:', startOfWeek4);
+    // console.log('End of Week 4:', endOfWeek4);
 
     const weeklyData = await Transaction.aggregate([
       { $match: { date: { $gte: startOfWeek1, $lte: endOfWeek4 } } },
@@ -195,7 +196,7 @@ router.get('/statistics/last4weeks', async (req, res) => {
       return weekData || { _id: week, data: [{ type: 'Income', total: 0 }, { type: 'Expense', total: 0 }] };
     });
 
-    console.log('Weekly Data:', result);
+    // console.log('Weekly Data:', result);
 
     res.status(200).json(result);
   } catch (error) {
