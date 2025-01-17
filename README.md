@@ -4,6 +4,7 @@ Code of Africa Challenge "A MERN stack Wallet Web Application to track transacti
 ## Table of Contents
 - [Features](#features)
 - [Demo](#demo)
+- [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Technologies Used](#technologies-used)
@@ -22,7 +23,22 @@ Code of Africa Challenge "A MERN stack Wallet Web Application to track transacti
 ## Demo
 [Live Demo](https://taskforce-wallet-web-app-lswk.vercel.app/)
 
-## screenshots
+## Screenshots
 
-- Landing Page
 ![Landing Page](Screenshots/1.png)
+
+![Login ](Screenshots/2.png)
+
+![Register](Screenshots/3.png)
+
+![Dashboard](Screenshots/5.png)
+
+![Transactions Management](Screenshots/6.png)
+
+![Add Transaction](Screenshots/7.png)
+
+![Accounts Management](Screenshots/8.png)
+
+![All Transactions ](Screenshots/9.png)
+
+![Filter Dates and Export Excel file](Screenshots/10.png)

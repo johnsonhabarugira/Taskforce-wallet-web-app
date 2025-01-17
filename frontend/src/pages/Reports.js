@@ -58,7 +58,7 @@ const Reports = () => {
       title: 'Amount',
       dataIndex: 'amount',
       key: 'amount',
-      render: (amount) => `$${amount.toFixed(2)}`, 
+      render: (amount) => `RWF ${amount.toFixed(2)}`, 
     },
     {
       title: 'Type',
