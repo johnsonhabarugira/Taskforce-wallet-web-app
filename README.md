@@ -51,30 +51,61 @@ git clone https://github.com/johnsonhabarugira/Taskforce-wallet-web-app.git
 Navigate into the project directory: 
 cd Taskforce-wallet-web-app
  
-2. Set Up the Backend
- 1. Navigate to the backend folder
- cd backend
- 2. Install dependencies:
- npm install
- 3. Create a .env file in backend and config invironment variables:
- PORT=
- MONGO_URI=
- JWT_SECRET=
- 4. Start backend server
- npm start
-3. Set Up Frontend 
- 1. Navigate to the frontend folder:
- cd ../frontend
- 2. Install Dependencies
- npm install
- 3. Create a .env file in frontend and config invironment variables:
- REACT_APP_BACKEND_URL=
- PORT = 
- 4. Start the frontend development server:
- npm install
-4. Set Up MongoDB
- 1. Create an Atlas cluster and get your connection string.
+## Installation Guide
 
+Follow the steps below to set up the Wallet Web Application locally:
+
+---
+
+### **2. Set Up the Backend**
+1. **Navigate to the `backend` folder**:
+   ```bash
+   cd backend
+   ```
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+3. **Create a `.env` file** in the `backend` folder and configure the following environment variables:
+   ```env
+   PORT=5001
+   MONGO_URI=your_mongo_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   ```
+4. **Start the backend server**:
+   ```bash
+   npm start
+   ```
+
+---
+
+### **3. Set Up the Frontend**
+1. **Navigate to the `frontend` folder**:
+   ```bash
+   cd ../frontend
+   ```
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+3. **Create a `.env` file** in the `frontend` folder and configure the following environment variables:
+   ```env
+   REACT_APP_BACKEND_URL=http://localhost:5001
+   PORT=3000
+   ```
+4. **Start the frontend development server**:
+   ```bash
+   npm start
+   ```
+
+---
+
+### **4. Set Up MongoDB**
+1. **Create an Atlas cluster** get your connection string.
+   
+2. Add connection string to the `MONGO_URI` variable in your `.env` file in the `backend` folder.
+
+---
 ## Usage
 1. Sign up or log in to the application.
 2. Add Accounts and set Limit.
