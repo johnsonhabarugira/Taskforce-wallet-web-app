@@ -133,6 +133,8 @@ Follow the steps below to set up the Wallet Web Application locally:
 
 ![Login ](Screenshots/2.png)
 
+![Dashboard](Screenshots/4.png)
+
 ![Dashboard](Screenshots/5.png)
 
 ![Transactions Management](Screenshots/6.png)
