@@ -1,6 +1,13 @@
 ![Node.js](https://img.shields.io/badge/Node.js-16.x-green)
 ![React](https://img.shields.io/badge/React-18.x-blue)
 ![MongoDB](https://img.shields.io/badge/MongoDB-5.x-brightgreen)
+![Forks](https://img.shields.io/github/forks/johnsonhabarugira/Taskforce-wallet-web-app?style=social)
+![Stars](https://img.shields.io/github/stars/johnsonhabarugira/Taskforce-wallet-web-app?style=social)
+![Issues](https://img.shields.io/github/issues/johnsonhabarugira/Taskforce-wallet-web-app)
+![Pull Requests](https://img.shields.io/github/issues-pr/johnsonhabarugira/Taskforce-wallet-web-app)
+
+
+
 
 # Taskforce-wallet-web-app
 
@@ -21,6 +28,7 @@ Code of Africa Challenge "A MERN stack Wallet Web Application to track transacti
 - Add Accounts
 - Track income and expenses
 - Generate detailed financial reports
+- Set Limit
 - Manage categories
 - Visualize data with charts
 - Export Excel File
