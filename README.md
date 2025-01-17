@@ -4,12 +4,11 @@ Code of Africa Challenge "A MERN stack Wallet Web Application to track transacti
 ## Table of Contents
 - [Features](#features)
 - [Demo](#demo)
-- [Screenshots](#screenshots)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Technologies Used](#technologies-used)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
 - [Contributing](#contributing)
-
 
 ## Features
 - Add Accounts
@@ -23,34 +22,18 @@ Code of Africa Challenge "A MERN stack Wallet Web Application to track transacti
 ## Demo
 [Live Demo](https://taskforce-wallet-web-app-lswk.vercel.app/)
 
-## Screenshots
-- Landing Page
-![Landing Page](Screenshots/1.png)
-
-![Login ](Screenshots/2.png)
-
-![Dashboard](Screenshots/5.png)
-
-![Transactions Management](Screenshots/6.png)
-
-![Accounts Management](Screenshots/8.png)
-- Add Acoount and allow user to set limit for account
-![Add Acoount and allow user to set limit for account ](Screenshots/11.png)
-
-![All Transactions ](Screenshots/9.png)
-- Filter Dates and Export Excel file
-![Filter Dates and Export Excel file](Screenshots/10.png)
-
 ## Installation
 
 To set up the Wallet Web Application locally, follow these steps
 
-1. Clone the Repository
+ ### **1. Clone the Repository**
+```bash
 git clone https://github.com/johnsonhabarugira/Taskforce-wallet-web-app.git
-
-Navigate into the project directory: 
+```
+*** Navigate into the project directory: ***
+```bash
 cd Taskforce-wallet-web-app
- 
+ ```
 ## Installation Guide
 
 Follow the steps below to set up the Wallet Web Application locally:
@@ -106,9 +89,43 @@ Follow the steps below to set up the Wallet Web Application locally:
 2. Add connection string to the `MONGO_URI` variable in your `.env` file in the `backend` folder.
 
 ---
+## Technologies Used
+- Frontend: React, Ant Design
+- Backend: Node.js, Express
+- Database: MongoDB
+- Charting: Chart.js
+
 ## Usage
 1. Sign up or log in to the application.
 2. Add Accounts and set Limit.
 3. Start tracking your income and expenses.
 4. View reports and visual summaries on the dashboard.
 5. filter dates and Export Excel.
+
+
+## Screenshots
+- Landing Page
+![Landing Page](Screenshots/1.png)
+
+![Login ](Screenshots/2.png)
+
+![Dashboard](Screenshots/5.png)
+
+![Transactions Management](Screenshots/6.png)
+
+![Accounts Management](Screenshots/8.png)
+- Add Acoount and allow user to set limit for account
+![Add Acoount and allow user to set limit for account ](Screenshots/11.png)
+
+![All Transactions ](Screenshots/9.png)
+- Filter Dates and Export Excel file
+![Filter Dates and Export Excel file](Screenshots/10.png)
+
+
+## Contributing
+
+This project is part of a challenge, and contributions are not welcome.
+The repository is intended for individual skill assessment,
+and external contributions may violate the challenge's rules or guidelines.
+
+Thank you for your understanding.
